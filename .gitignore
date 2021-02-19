@@ -11,6 +11,7 @@ config.json
 
 weibo/
 *.log
+all.log
 
 
 
