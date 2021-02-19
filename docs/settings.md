@@ -10,6 +10,9 @@ $ python3 -m weibo_spider
     "filter": 1,
     "since_date": "2018-01-01",
     "end_date": "now",
+    "random_wait_pages": [1, 5],
+    "random_wait_seconds": [6, 10],
+    "global_wait": [[1000, 3600], [500, 2000]],    
     "write_mode": ["csv", "txt"],
     "pic_download": 1,
     "video_download": 1,
@@ -60,6 +63,12 @@ since_date值可以是日期，也可以是整数。如果是日期，代表爬�
 **since_date是所有user的爬取起始时间，非常不灵活。如果你要爬多个用户，并且想单独为每个用户设置一个since_date，可以使用[定期自动爬取微博](https://github.com/dataabc/weiboSpider/blob/master/docs/automation.md)方法二中的方法，该方法可以为多个用户设置不同的since_date，非常灵活。**<br>
 **设置end_date**<br>
 end_date值可以是日期，也可以是"now"。如果是日期，代表爬取该日期之前的微博，格式应为“yyyy-mm-dd”；如果是"now"，代表爬取发布日期从since_date到现在的微博。since_date配合end_date，表示爬取发布日期在since_date和end_date之间的微博，包含边界。since_date是起始日期，end_date是结束日期，因此end_date时间应晚于since_date。注意，since_date即可以通过config.json文件的since_date参数设置，也可以通过user_id_list.txt设置；而end_date只能通过config.json文件的end_date参数设置，是全局变量，所有user_id都使用同一个end_date。当end_date值不是"now"时，程序无法获取微博中的视频，如果想要获取视频，请为end_date赋值为"now"。<br>
+**设置random_wait_pages**<br>
+random_wait_pages值是一个长度为2的整数列表，代表每爬取x页微博暂停一次，x为整数，值在random_wait_pages列表两个整数之间随机获取。默认值为[1, 5]，代表每爬取1到5页暂停一次，如果程序被限制，可以加快暂停频率，即适当减小random_wait_pages内的值。<br>
+**设置random_wait_seconds**<br>
+random_wait_seconds值是一个长度为2的整数列表，代表每次暂停sleep x 秒，x为整数， 值在random_wait_seconds列表两个整数之间随机获取。默认值为[6, 10]，代表每次暂停sleep 6到10秒，如果程序被限制，可以增加等待时间，即适当增大random_wait_seconds内的值。<br>
+**设置global_wait**<br>
+global_wait控制全局等待时间，默认值为[[1000, 3600], [500, 2000]]，代表获取1000页微博，程序一次性暂停3600秒；之后获取500页微博，程序再一次性暂停2000秒；之后如果再获取1000页微博，程序一次性暂停3600秒，以此类推。默认的只有前面的两个全局等待时间（[1000, 3600]和[500, 2000]），可以设置多个，如值可以为[[1000, 3600], [500, 3000], [700, 3600]]，程序会根据配置依次等待对应时间，如果配置全部被使用，程序会从第一个配置开始，依次使用，循环往复。<br>
 **设置write_mode**<br>
 write_mode控制结果文件格式，取值范围是csv、txt、json、mongo和mysql，分别代表将结果文件写入csv、txt、json、MongoDB和MySQL数据库。write_mode可以同时包含这些取值中的一个或几个，如：
 ```
