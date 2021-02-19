@@ -310,9 +310,10 @@ class Spider:
             self.write_recommend(temple_recommend)
         
             for r in temple_recommend:
-                sleep(2)
-                comments = self.get_comment_list(r.origin_id, r.mid)
-                self.write_comment(comments)
+                if r.comment_num >= 5:
+                    sleep(2)
+                    comments = self.get_comment_list(r.origin_id, r.mid)
+                    self.write_comment(comments)
 
         except Exception as e:
             logger.exception(e)

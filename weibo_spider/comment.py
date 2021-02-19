@@ -12,6 +12,7 @@ class Comment:
         self.like_count = 0
 
         self.origin_url = ''
+        self.content_id = ''
 
         self.user_name = ''
         self.user_id = ''
@@ -24,6 +25,7 @@ class Comment:
         """打印一条评论"""
         result = u'评论：%s\n' % self.origin_id
         result += self.text + '\n'
+        result += "content_id：%s\n" % self.content_id
         result += u'发布时间：%s\n' % self.publish_time
         result += u'原文链接：%s\n' % self.origin_url
         return result

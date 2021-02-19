@@ -15,12 +15,15 @@ class CommentFlowParser(Parser):
         self.url = 'https://m.weibo.cn/comments/hotflow?id=%s&mid=%s&max_id_type=0' % (origin_id, mid)
         logger.debug(self.url)
         self.comment_list = handle_json(self.cookie, self.url)
+        self.origin_id = origin_id
+        self.mid = mid
 
     def handleComments(self):
         """处理评论内容"""
         try:
             comments = []
             data = self.comment_list['data']['data']
+            logger.debug("data = %s " % data)
             for d in data:
                 comment = Comment()
                 comment.origin_id = d['id']
@@ -29,7 +32,7 @@ class CommentFlowParser(Parser):
                 comment.rootid = d['rootid']
                 comment.rootidstr = d['rootidstr']
                 comment.text = d['text']
-                comment.origin_url = 'https://m.weibo.cn/comments/hotflow?id=%s&mid=%s&max_id_type=0' % (comment.origin_id, comment.mid)
+                comment.origin_url = 'https://m.weibo.cn/comments/hotflow?id=%s&mid=%s&max_id_type=0' % (self.origin_id, self.mid)
 
                 comment.verified = 0
                 if 'verified_reason' in d['user']:
@@ -43,8 +46,10 @@ class CommentFlowParser(Parser):
 
                 comment.max_id = d['max_id']
                 comment.like_count = d['like_count']
-                
-                comments.append(comment)
+                comment.content_id = self.origin_id
+                if comment.like_count >= 1:
+                    comments.append(comment)
+                    
                 logger.info(comment)
             return comments
 

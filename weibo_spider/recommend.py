@@ -23,6 +23,7 @@ class Recommend:
     def __str__(self):
         """打印一条微博"""
         result = self.content + '\n'
+        result += u'origin_id：%s\n' % self.origin_id
         result += u'发布时间：%s\n' % self.publish_time
         result += u'点赞数：%d\n' % self.up_num
         result += u'转发数：%d\n' % self.retweet_num
