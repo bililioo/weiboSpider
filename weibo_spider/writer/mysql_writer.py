@@ -117,7 +117,7 @@ class MySqlWriter(Writer):
         # 创建'user'表
         create_table = """
                 CREATE TABLE IF NOT EXISTS user (
-                id varchar(20) NOT NULL,
+                id int(8) primary key not null auto_increment,
                 nickname varchar(30),
                 gender varchar(10),
                 location varchar(200),
@@ -130,7 +130,11 @@ class MySqlWriter(Writer):
                 weibo_num INT,
                 following INT,
                 followers INT,
-                PRIMARY KEY (id)
+                user_id varchar(50),
+                avatar varchar(200),
+                verified INT,
+                verified_reason varchar(200),
+                user_url varchar(200)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"""
         self._mysql_create_table(create_table)
         self._mysql_insert('user', [user.__dict__])

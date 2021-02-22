@@ -1,8 +1,12 @@
 class User:
     def __init__(self):
-        self.id = ''
-
+        self.user_id = ''
         self.nickname = ''
+        self.profile_url = ''
+        self.avatar = ''
+        self.verified = 0
+        self.verified_reason = ''
+        self.user_url = ''
 
         self.gender = ''
         self.location = ''
