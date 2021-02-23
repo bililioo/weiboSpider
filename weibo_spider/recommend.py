@@ -20,6 +20,19 @@ class Recommend:
         self.retweet_num = 0
         self.comment_num = 0
 
+        self.retweeted_id = ''
+        self.retweeted_mid = ''
+        self.retweeted_publish_time = ''
+        self.retweeted_text = ''
+        self.retweeted_textLength = 0
+        self.retweeted_pics = ''
+        self.retweeted_user_name = ''
+        self.retweeted_user_id = ''
+        self.retweeted_avatar = ''
+        self.retweeted_verified = 0
+        self.retweeted_verified_reason = ''
+        self.retweeted_user_url = ''
+
     def __str__(self):
         """打印一条微博"""
         result = self.content + '\n'

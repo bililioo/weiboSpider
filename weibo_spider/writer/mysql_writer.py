@@ -161,7 +161,19 @@ class MySqlWriter(Writer):
                 verified INT,
                 origin_url varchar(200),
                 verified_reason varchar(200),
-                user_url varchar(200)
+                user_url varchar(200), 
+                retweeted_id varchar(100),
+                retweeted_mid varchar(100),
+                retweeted_publish_time varchar(50),
+                retweeted_text varchar(1000),
+                retweeted_textLength INT,
+                retweeted_pics varchar(1000),
+                retweeted_user_name varchar(40),
+                retweeted_user_id varchar(50)，
+                retweeted_avatar varchar(50),
+                retweeted_verified INT,
+                retweeted_verified_reason varchar(200),
+                retweeted_user_url varchar(200)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"""
         self._mysql_create_table(create_table)
         # 在'recommend'表中插入或更新微博数据

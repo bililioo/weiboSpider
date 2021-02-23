@@ -2,7 +2,6 @@ class User:
     def __init__(self):
         self.user_id = ''
         self.nickname = ''
-        self.profile_url = ''
         self.avatar = ''
         self.verified = 0
         self.verified_reason = ''
