@@ -221,7 +221,7 @@ class Spider:
                 os.makedirs(file_dir)
             if type == 'img' or type == 'video':
                 return file_dir
-            file_path = file_dir + os.sep + self.user.id + '.' + type
+            file_path = file_dir + os.sep + self.user.user_id + '.' + type
             return file_path
         except Exception as e:
             logger.exception(e)
