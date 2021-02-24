@@ -12,6 +12,7 @@ config.json
 weibo/
 *.log
 all.log
+temp.json
 
 
 

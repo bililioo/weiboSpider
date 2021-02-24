@@ -11,6 +11,7 @@ import sys
 from datetime import date, datetime, timedelta
 from time import sleep
 from typing import Type
+from weibo_spider.parser.profile_parser import ProfileParser
 from weibo_spider.recommend import Recommend
 from weibo_spider.parser.comment_flow_parser import CommentFlowParser
 from weibo_spider.parser.recommend_parser import RecommendParser
@@ -137,8 +138,14 @@ class Spider:
         return recommend
 
     def get_comment_list(self, origin_id, mid):
+        """获取评论"""
         comments = CommentFlowParser(self.cookie, origin_id, mid).handleComments()
         return comments
+
+    def get_profile(self, uid):
+        """获取用户主页"""
+        profile = ProfileParser(self.cookie, uid).handleContents()
+        return profile
 
     def get_weibo_info(self):
         """获取微博信息"""
@@ -306,14 +313,18 @@ class Spider:
         """运行爬虫"""
         try:
             self.initialize_writers()
-            temple_recommend = self.get_recommend_list()
-            self.write_recommend(temple_recommend)
+
+            temp = self.get_profile('1783497251')
+            logger.info(temp)
+
+            # temple_recommend = self.get_recommend_list()
+            # self.write_recommend(temple_recommend)
         
-            for r in temple_recommend:
-                if r.comment_num >= 5:
-                    sleep(2)
-                    comments = self.get_comment_list(r.origin_id, r.mid)
-                    self.write_comment(comments)
+            # for r in temple_recommend:
+            #     if r.comment_num >= 5:
+            #         sleep(2)
+            #         comments = self.get_comment_list(r.origin_id, r.mid)
+            #         self.write_comment(comments)
 
         except Exception as e:
             logger.exception(e)
